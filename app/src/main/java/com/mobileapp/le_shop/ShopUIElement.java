@@ -70,6 +70,8 @@ public class ShopUIElement {
      */
     void setImage(Bitmap image) {
         this.image = image;
+
+        UpdateUIElements();
     }
 
     /**
@@ -78,6 +80,8 @@ public class ShopUIElement {
      */
     void setTitle(String title) {
         this.title = title;
+
+        UpdateUIElements();
     }
 
     /**
@@ -86,6 +90,8 @@ public class ShopUIElement {
      */
     void setPrice(float price) {
         this.price = price;
+
+        UpdateUIElements();
     }
 
     /**
