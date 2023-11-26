@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/Sahara">
+        <menu>
+            <item
+                android:id="@+id/homeFragment"
+                android:title="@string/homeToolText"
+                android:icon="@drawable/icon_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <item
+                android:id="@+id/catalogFragment"
+                android:title="@string/catalogToolText"
+                android:icon="@drawable/icon_catalog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </menu>
+    </item>
+
+</menu>
