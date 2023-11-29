@@ -1,9 +1,11 @@
 package com.mobileapp.le_shop;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -15,7 +17,7 @@ import java.io.OutputStream;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    private static String DB_NAME ="Sahara.sqlite";
+    private static String DB_NAME ="SaharaDB.db";
     private static String DB_PATH = "/data/data/package_name/database";
     private static int DB_VERSION = 1;
     private final File DB_FILE;
@@ -31,13 +33,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void createDataBase() throws IOException {
         // If the database does not exist, copy it from the assets.
         boolean mDataBaseExist = checkDataBase();
-        if(!mDataBaseExist) {
+        if(true) { //!mDataBaseExist) {
             this.getReadableDatabase();
             this.close();
             try {
-                // Copy the database from assests
+                // Copy the database from assets
                 copyDataBase();
+                Log.d("Database", "Database Copied!");
             } catch (IOException mIOException) {
+                Log.d("Database Error:", mIOException.getMessage());
                 throw new Error("ErrorCopyingDataBase");
             }
         }
@@ -64,7 +68,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     // Open the database, so we can query it
     public boolean openDataBase() throws SQLException {
-        dataBase = SQLiteDatabase.openDatabase(DB_PATH + DB_FILE, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        //dataBase = SQLiteDatabase.openDatabase(DB_PATH + DB_FILE, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        dataBase = SQLiteDatabase.openDatabase(DB_FILE.getPath(), null, SQLiteDatabase.CREATE_IF_NECESSARY);
         return dataBase != null;
     }
 
