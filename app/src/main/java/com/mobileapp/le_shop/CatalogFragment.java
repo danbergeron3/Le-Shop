@@ -26,7 +26,7 @@ public class CatalogFragment extends Fragment {
                 = FragmentCatalogBinding.inflate(inflater,container, false);
         View view = binding.getRoot();
 
-        Populate.populateView(binding, 5);
+        Populate.populateView(binding.linearLayout1, 5);
 
        return view;
     }
