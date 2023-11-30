@@ -22,11 +22,11 @@ public class CatalogFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        //View view = inflater.inflate(R.layout.fragment_catalog, container, false);
-        com.mobileapp.le_shop.CatalogFragment binding
+        @NonNull FragmentCatalogBinding binding
                 = FragmentCatalogBinding.inflate(inflater,container, false);
         View view = binding.getRoot();
 
-        populateView();
+        Populate.populateView(binding, 5);
 
        return view;
     }
