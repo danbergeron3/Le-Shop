@@ -1,9 +1,10 @@
 # Sahara
 ## Authors
-Front end:
+### Front end:
 <br /> danbergeron3
 <br /> NishanthPotturu
-Back end: 
+<br /> 
+### Back end: 
 <br /> DannyMacha22
 <br /> rjmara
 ## Description 
