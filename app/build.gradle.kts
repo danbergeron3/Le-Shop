@@ -7,6 +7,10 @@ android {
     namespace = "com.mobileapp.le_shop"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding = true
+    }
+    
     defaultConfig {
         applicationId = "com.mobileapp.le_shop"
         minSdk = 24
