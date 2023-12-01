@@ -70,7 +70,7 @@ public class DatabaseAdapter {
 
     /**
      * Will query the database for a list of all the pants and their sizes.
-     * Could fail if table columns change.
+     * Returns null if no results.
      * @return ArrayList of ShopItems
      */
     public ArrayList<ShopItem> getAllPants() {
@@ -78,6 +78,13 @@ public class DatabaseAdapter {
         String sql = "Select * from Items Natural Join Pants";
         /* COLUMNS: item_id name description image price size */
         Cursor cr = db.rawQuery(sql, null);
+
+        // Check if Empty
+        if(cr.getCount() == 0) {
+            return null;
+        }
+
+        // Comb the List and make the Shop Items
         for (int i = 0; i < cr.getCount(); i++) {
             cr.moveToPosition(i);
             int item_id = cr.getInt(0);
@@ -98,14 +105,63 @@ public class DatabaseAdapter {
         return null;
     }
 
+    /**
+     * Returns all Shop Items from the Items table, does not
+     * return distinct sizes and size field will be NULL.
+     * Returns null if no results.
+     * @return ArraList of ShopItem
+     */
     public ArrayList<ShopItem> getAllShopItems() {
-        // TODO: Get all of the items from the Items table, sizes will be null.
-        return null;
+        ArrayList<ShopItem> list = new ArrayList<ShopItem>();
+        String sql = "Select * from Items";
+        Cursor cr = db.rawQuery(sql, null);
+
+        // Check if Empty
+        if(cr.getCount() == 0) {
+            return null;
+        }
+
+        // Comb the list and make the ShopItems
+        for (int i = 0; i < cr.getCount(); i++) {
+            cr.moveToPosition(i);
+            int item_id = cr.getInt(0);
+            String name = cr.getString(1);
+            String desc = cr.getString(2);
+            float price = cr.getFloat(4);
+            String size = null;
+
+            ShopItem item = new ShopItem(item_id, name, desc, price, size);
+            list.add(item);
+        }
+        return list;
     }
 
+    /**
+     * Returns a single Shop Item from the Items table with the given id.
+     * Does not return distinct sizes and size field will be NULL.
+     * Returns null if no results.
+     * @param id
+     * @return
+     */
     public ShopItem getShopItemFromId(int id) {
-        // TODO: Size will return null from this one, use getShopItemAndSizesFromId
-        return null;
+        String sql = String.format("select * from Items where item_id = %d",id);
+        Cursor cr = db.rawQuery(sql, null);
+
+        // Check if Empty
+        if(cr.getCount() == 0) {
+            return null;
+        }
+
+        // Create Shop Item and Return
+        cr.moveToFirst();
+        int item_id = cr.getInt(0);
+        String name = cr.getString(1);
+        String desc = cr.getString(2);
+        float price = cr.getFloat(4);
+        String size = null;
+
+        ShopItem item = new ShopItem(item_id, name, desc, price, size);
+        return item;
     }
 
     public ArrayList<ShopItem> getShopItemAndSizesFromId(int id) {
