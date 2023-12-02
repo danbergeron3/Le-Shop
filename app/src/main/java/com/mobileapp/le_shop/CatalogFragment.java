@@ -8,11 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobileapp.le_shop.databinding.FragmentCatalogBinding;
+
+import java.io.IOException;
 
 
 public class CatalogFragment extends Fragment {
@@ -25,8 +28,11 @@ public class CatalogFragment extends Fragment {
         @NonNull FragmentCatalogBinding binding
                 = FragmentCatalogBinding.inflate(inflater,container, false);
         View view = binding.getRoot();
-
-        Populate.populateView(binding.linearLayout1, 5);
+        try {
+            Populate.populateView(binding.linearLayout1, binding.getRoot().getContext());
+        } catch (IOException e) {
+            Log.e("DB_ADAPTER", "Failed to create database");
+        }
 
        return view;
     }
