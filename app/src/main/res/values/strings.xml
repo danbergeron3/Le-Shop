@@ -6,4 +6,6 @@
     <string name="Sahara">Sahara</string>
     <string name="homeToolText">Home Navigator</string>
     <string name="catalogToolText">Catalog Navigator</string>
+    <string name="placeholderItemName">Item Name Placeholder</string>
+    <string name="placeholderItemPrice">Item Price Placeholder</string>
 </resources>
