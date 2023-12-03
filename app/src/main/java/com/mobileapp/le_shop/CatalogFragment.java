@@ -78,10 +78,6 @@ public class CatalogFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {}
         });
-
-
-
-
        return view;
     }
 }

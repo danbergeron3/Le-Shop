@@ -30,13 +30,16 @@ public class Populate {
         DatabaseAdapter dbPortal = new DatabaseAdapter(fragmentContext);
         dbPortal.createDatabase();
         dbPortal.openDatabase();
-        ArrayList<ShopItem> allpants = dbPortal.getAllPants(); // (TODO): Repalce with all items
+        ArrayList<ShopItem> allItems = dbPortal.getAllShopItems();
 
-        for(ShopItem item: allpants) {
+        for(ShopItem item: allItems) {
             // (TODO): Implement item button here
-            TextView text = new TextView(parent.getContext());
-            text.setText("All");
-            parent.addView(text);
+            Log.d("POPULATE_DEBUG", "making item" + item.getName());
+            ItemButton itemButton = new ItemButton(parent.getContext());
+            itemButton.setItemIDNum(item.getId());
+            itemButton.setItemName(item.getName());
+            itemButton.setItemPrice(Float.toString(item.getPrice()));
+            parent.addView(itemButton);
         }
     }
 
@@ -57,10 +60,12 @@ public class Populate {
         ArrayList<ShopItem> allPants = dbPortal.getAllPants();
 
         for(ShopItem pants: allPants) {
-            // (TODO): Implement item button here
-            TextView text = new TextView(parent.getContext());
-            text.setText("pants");
-            parent.addView(text);
+            Log.d("POPULATE_DEBUG", "making item" + pants.getName());
+            ItemButton itemButton = new ItemButton(parent.getContext());
+            itemButton.setItemIDNum(pants.getId());
+            itemButton.setItemName(pants.getName());
+            itemButton.setItemPrice(Float.toString(pants.getPrice()));
+            parent.addView(itemButton);
         }
     }
 
@@ -79,10 +84,12 @@ public class Populate {
         ArrayList<ShopItem> allShirts = dbPortal.getAllPants();
 
         for(ShopItem shirts: allShirts) {
-            // (TODO): Implement item button here
-            TextView text = new TextView(parent.getContext());
-            text.setText("shirts");
-            parent.addView(text);
+            Log.d("POPULATE_DEBUG", "making item" + shirts.getName());
+            ItemButton itemButton = new ItemButton(parent.getContext());
+            itemButton.setItemIDNum(shirts.getId());
+            itemButton.setItemName(shirts.getName());
+            itemButton.setItemPrice(Float.toString(shirts.getPrice()));
+            parent.addView(itemButton);
         }
     }
 
@@ -102,9 +109,12 @@ public class Populate {
 
             for(ShopItem shirts: allShirts) {
                 // (TODO): Implement item button here
-                TextView text = new TextView(parent.getContext());
-                text.setText("cart");
-                parent.addView(text);
+                Log.d("POPULATE_DEBUG", "making item" + shirts.getName());
+                ItemButton itemButton = new ItemButton(parent.getContext());
+                itemButton.setItemIDNum(shirts.getId());
+                itemButton.setItemName(shirts.getName());
+                itemButton.setItemPrice(Float.toString(shirts.getPrice()));
+                parent.addView(itemButton);
             }
     }
 
