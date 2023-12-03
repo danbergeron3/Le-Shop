@@ -5,4 +5,11 @@
     <string name="Sahara">Sahara</string>
     <string name="homeToolText">Home Navigator</string>
     <string name="catalogToolText">Catalog Navigator</string>
+
+
+    <string-array name="item_array">
+        <item>All</item>
+        <item>Shirts</item>
+        <item>Pants</item>
+    </string-array>
 </resources>
