@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
@@ -21,23 +22,31 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        DataBaseHelper db = new DataBaseHelper(view.getContext());
+        // DataBaseHelper db = new DataBaseHelper(view.getContext());
+        DatabaseAdapter adapter = new DatabaseAdapter(view.getContext());
+
         try{
-            db.createDataBase();
+            adapter.createDatabase();
+            //db.createDataBase();
         } catch(IOException mIOException) {
             Log.d("Error", mIOException.getMessage());
         }
 
-        db.openDataBase();
-        Log.d("Database Name", db.getDatabaseName());
-        SQLiteDatabase dbRead = db.getReadableDatabase();
+        adapter.openDatabase();
+//        db.openDataBase();
+//        Log.d("Database Name", db.getDatabaseName());
+//        SQLiteDatabase dbRead = db.getReadableDatabase();
+//
+//        Cursor cr = dbRead.rawQuery("Select name from Items", null);
+//        cr.moveToFirst();
+//        for(int i = 0; i < cr.getCount(); i++) {
+//            cr.moveToPosition(i);
+//            Log.d("DB Output", cr.getString(0));
+//        }
+        ArrayList<ShopItem> shirts = adapter.getAllShopItems();
 
-        Cursor cr = dbRead.rawQuery("Select name from Items", null);
-        cr.moveToFirst();
-        for(int i = 0; i < cr.getCount(); i++) {
-            cr.moveToPosition(i);
-            Log.d("DB Output", cr.getString(0));
-        }
+
+
 
         return view;
     }
