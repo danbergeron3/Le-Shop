@@ -322,7 +322,7 @@ public class DatabaseAdapter {
      * @return quantity
      */
     public int getCartItemQuantity(int id, String size) {
-        String sql = String.format("select * from Cart_Items in (%d) and size = '%s'", id, size);
+        String sql = String.format("select * from Cart_Items where id = %d and size = '%s'", id, size);
         Cursor cr = db.rawQuery(sql, null);
 
         if(cr.getCount() == 0) {
@@ -346,7 +346,7 @@ public class DatabaseAdapter {
      */
     public void addCartItem(ShopItem item) {
         // TODO: Add the item to the cart, size must NOT BE NULL
-        String sql = String.format("select * from Cart_Items in (%d) and size = '%s'", item.getId(), item.getSize());
+        String sql = String.format("select * from Cart_Items where item_id = %d and size = '%s'", item.getId(), item.getSize());
         Cursor cr = db.rawQuery(sql, null);
         String modify_sql;
 
@@ -355,7 +355,7 @@ public class DatabaseAdapter {
             modify_sql = String.format("insert into Cart_Items(" + item.getId() + item.getSize() + 1 + item.getPrice() + ")");
         } else {
             int quantity = getCartItemQuantity(item.getId(), item.getSize());
-            modify_sql = String.format("update Cart_Items set quantity = %d where id = %d", quantity, item.getId());
+            modify_sql = String.format("update Cart_Items set quantity = %d where item_id = %d", quantity, item.getId());
         }
         db.execSQL(modify_sql);
     }
@@ -368,7 +368,7 @@ public class DatabaseAdapter {
     public void removeCartItem(int id, String size) {
         // TODO: Remove item from the cart with this id and size
         // TODO: Might need more logic to reduce quantity and such
-        String sql = String.format("select * from Cart_Items in (%d) and size = '%s'", id, size);
+        String sql = String.format("select * from Cart_Items where id = %d and size = '%s'", id, size);
         Cursor cr = db.rawQuery(sql, null);
         String modify_sql;
 
@@ -376,9 +376,9 @@ public class DatabaseAdapter {
         if(cr.getCount() != 0) {
             int quantity = getCartItemQuantity(id, size);
             if (quantity == 1) {
-                modify_sql = String.format("delete from Cart_Items where id = %d", id);
+                modify_sql = String.format("delete from Cart_Items where item_id = %d", id);
             } else {
-                modify_sql = String.format("update Cart_Items set quantity = %d where id = %d", quantity - 1, id);
+                modify_sql = String.format("update Cart_Items set quantity = %d where item_id = %d", quantity - 1, id);
             }
             db.execSQL(modify_sql);
         }

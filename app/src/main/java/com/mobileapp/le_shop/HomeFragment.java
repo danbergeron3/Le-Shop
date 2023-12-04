@@ -43,8 +43,15 @@ public class HomeFragment extends Fragment {
 //            cr.moveToPosition(i);
 //            Log.d("DB Output", cr.getString(0));
 //        }
-        ArrayList<ShopItem> shirts = adapter.getAllShopItems();
 
+        // (item_id, name, desc, price, size)
+        ShopItem item1 = new ShopItem(1, "Polo", null, 18, "M" );
+        ShopItem item2 = new ShopItem(1, "Polo", null, 18, "L" );
+
+        //ArrayList<ShopItem> shirts = adapter.getAllShopItems();
+        adapter.addCartItem(item1);
+        adapter.addCartItem(item2);
+        adapter.getAllCartItems();
 
 
 
