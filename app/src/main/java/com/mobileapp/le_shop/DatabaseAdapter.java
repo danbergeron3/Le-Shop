@@ -349,12 +349,14 @@ public class DatabaseAdapter {
         String sql = String.format("select * from Cart_Items where item_id = %d and size = '%s'", item.getId(), item.getSize());
         Cursor cr = db.rawQuery(sql, null);
         String modify_sql;
+        int quantity;
 
         // Check if Empty
         if(cr.getCount() == 0) {
-            modify_sql = String.format("insert into Cart_Items(" + item.getId() + item.getSize() + 1 + item.getPrice() + ")");
+            quantity = 1;
+            modify_sql = String.format("insert into Cart_Items values(" + item.getId() + ", " + "'" + item.getSize() +"'" + ", " + quantity + ", " + item.getPrice() + ")");
         } else {
-            int quantity = getCartItemQuantity(item.getId(), item.getSize());
+            quantity = getCartItemQuantity(item.getId(), item.getSize());
             modify_sql = String.format("update Cart_Items set quantity = %d where item_id = %d", quantity, item.getId());
         }
         db.execSQL(modify_sql);
