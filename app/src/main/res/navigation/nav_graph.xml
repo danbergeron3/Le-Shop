@@ -27,7 +27,8 @@
         android:id="@+id/itemFragment"
         android:name="com.mobileapp.le_shop.ItemFragment"
         android:label="fragment_item"
-        tools:layout="@layout/fragment_item" />
+        tools:layout="@layout/fragment_item" >
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.mobileapp.le_shop.CartFragment"

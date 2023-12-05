@@ -11,6 +11,9 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.NavDirections;
+import com.mobileapp.le_shop.CatalogFragmentDirections;
 
 import com.mobileapp.le_shop.databinding.FragmentCatalogBinding;
 
@@ -22,8 +25,7 @@ public class CatalogFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-       //View view = inflater.inflate(R.layout.fragment_catalog, container, false);
+       // Inflate the layout for this fragment
         @NonNull FragmentCatalogBinding binding
                 = FragmentCatalogBinding.inflate(inflater,container, false);
         View view = binding.getRoot();
@@ -51,7 +53,9 @@ public class CatalogFragment extends Fragment {
                     case "Shirts":
                         try {
                             binding.linearLayout1.removeAllViews();
-                            Populate.populateViewWithShirts(binding.linearLayout1, binding.getRoot().getContext());
+                            Populate.populateViewWithShirts(binding.linearLayout1,
+                                    binding.getRoot().getContext(),
+                                    R.id.action_catalogFragment_to_itemFragment);
                         } catch (IOException e) {
                             Log.e("DB_ADAPTER", "Failed to create database");
                         }
@@ -59,7 +63,9 @@ public class CatalogFragment extends Fragment {
                     case "Pants":
                         try {
                             binding.linearLayout1.removeAllViews();
-                            Populate.populateViewWithPants(binding.linearLayout1, binding.getRoot().getContext());
+                            Populate.populateViewWithPants(binding.linearLayout1,
+                                    binding.getRoot().getContext(),
+                                    R.id.action_catalogFragment_to_itemFragment);
                         } catch (IOException e) {
                             Log.e("DB_ADAPTER", "Failed to create database");
                         }
@@ -67,12 +73,15 @@ public class CatalogFragment extends Fragment {
                     default:
                         try {
                             binding.linearLayout1.removeAllViews();
-                            Populate.populateViewAll(binding.linearLayout1, binding.getRoot().getContext());
+                            Populate.populateViewAll(binding.linearLayout1,
+                                    binding.getRoot().getContext(),
+                                    R.id.action_catalogFragment_to_itemFragment);
                         } catch (IOException e) {
                             Log.e("DB_ADAPTER", "Failed to create database");
                         }
                         return;
                 }
+
             }
             // required but not needed
             @Override
