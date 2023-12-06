@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
+import android.content.Context;
 
 public class ShopItem {
     // TODO: Images will be stored in the app, use the name to get the image
@@ -74,6 +75,15 @@ public class ShopItem {
      */
     public int getImageResourceId(FragmentActivity activity) {
         return activity.getResources().getIdentifier(name.toLowerCase(), "drawable", activity.getPackageName());
+    }
+
+    /**
+     * Gets the id of the image resource for this item.
+     * @param activity
+     * @return The id of the image. 0 if not found.
+     */
+    public int getImageResourceId(Context context) {
+        return context.getResources().getIdentifier(name.toLowerCase(), "drawable", context.getPackageName());
     }
 
     public String getSize() {
