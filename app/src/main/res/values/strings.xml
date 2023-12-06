@@ -1,9 +1,15 @@
 <resources>
     <string name="app_name">Sahara</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="cartToolText">Cart Navigator</string>
     <string name="Sahara">Sahara</string>
     <string name="homeToolText">Home Navigator</string>
     <string name="catalogToolText">Catalog Navigator</string>
+    <string name="placeholderItemName">Item Name Placeholder</string>
+    <string name="placeholderItemPrice">Item Price Placeholder</string>
+    <string-array name="item_array">
+        <item>All</item>
+        <item>Shirts</item>
+        <item>Pants</item>
+    </string-array>
 </resources>
