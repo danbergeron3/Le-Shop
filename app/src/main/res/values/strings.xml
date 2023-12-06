@@ -12,4 +12,6 @@
         <item>Shirts</item>
         <item>Pants</item>
     </string-array>
+    <string name="about">About</string>
+    <string name="support">Support</string>
 </resources>
