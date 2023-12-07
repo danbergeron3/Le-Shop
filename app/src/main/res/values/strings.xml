@@ -12,4 +12,9 @@
         <item>Shirts</item>
         <item>Pants</item>
     </string-array>
+    <string name="about">About</string>
+    <string name="support">Support</string>
+    <string name="catalog">Catalog</string>
+    <string name="item">Item</string>
+    <string name="cart">Cart</string>
 </resources>
