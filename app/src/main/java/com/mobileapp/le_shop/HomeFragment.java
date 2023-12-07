@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
@@ -21,23 +22,34 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        DataBaseHelper db = new DataBaseHelper(view.getContext());
+        // DataBaseHelper db = new DataBaseHelper(view.getContext());
+        DatabaseAdapter adapter = new DatabaseAdapter(view.getContext());
+
         try{
-            db.createDataBase();
+            adapter.createDatabase();
+            //db.createDataBase();
         } catch(IOException mIOException) {
             Log.d("Error", mIOException.getMessage());
         }
 
-        db.openDataBase();
-        Log.d("Database Name", db.getDatabaseName());
-        SQLiteDatabase dbRead = db.getReadableDatabase();
+        adapter.openDatabase();
 
-        Cursor cr = dbRead.rawQuery("Select name from Items", null);
-        cr.moveToFirst();
-        for(int i = 0; i < cr.getCount(); i++) {
-            cr.moveToPosition(i);
-            Log.d("DB Output", cr.getString(0));
-        }
+        ShopItem item1 = new ShopItem(1, "Polo", null, 18, "M" );
+        ShopItem item2 = new ShopItem(1, "Polo", null, 18, "L" );
+        ShopItem item3 = new ShopItem(1, "Polo", null, 18, "L" );
+        ShopItem item4 = new ShopItem(2, "Slacks", null, 32, "S" );
+
+        adapter.addCartItem(item1);
+        adapter.addCartItem(item2);
+        adapter.addCartItem(item3);
+        adapter.addCartItem(item4);
+
+        adapter.removeCartItem(1, "L");
+
+        ArrayList<ShopItem> please_work = adapter.getAllCartItems();
+        ArrayList<ShopItem> shirts = adapter.getAllUniqueShirts();
+        ArrayList<ShopItem> pants = adapter.getAllUniquePants();
+
 
         return view;
     }
