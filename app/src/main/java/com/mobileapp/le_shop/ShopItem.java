@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import android.content.Context;
+import android.util.Log;
 
 public class ShopItem {
     // TODO: Images will be stored in the app, use the name to get the image
@@ -60,12 +61,26 @@ public class ShopItem {
     }
 
     /**
+     * Makes a string out of the item name that relates to the item's
+     * image file.
+     * @return
+     */
+    private String getStringForImageFile() {
+        String ret = this.name;
+        ret = ret.toLowerCase();
+        ret = ret.replace(' ', '_');
+        ret = ret.replace('-', '_');
+
+        return ret;
+    }
+    /**
      * Gets the id of the image resource for this item.
      * @param activity
      * @return The id of the image. 0 if not found.
      */
     public int getImageResourceId(AppCompatActivity activity) {
-        return activity.getResources().getIdentifier(name.toLowerCase(), "drawable", activity.getPackageName());
+        String filename = getStringForImageFile();
+        return activity.getResources().getIdentifier(filename, "drawable", activity.getPackageName());
     }
 
     /**
@@ -74,16 +89,20 @@ public class ShopItem {
      * @return The id of the image. 0 if not found.
      */
     public int getImageResourceId(FragmentActivity activity) {
-        return activity.getResources().getIdentifier(name.toLowerCase(), "drawable", activity.getPackageName());
+        String filename = getStringForImageFile();
+        return activity.getResources().getIdentifier(filename, "drawable", activity.getPackageName());
     }
 
     /**
      * Gets the id of the image resource for this item.
-     * @param activity
+     * @param context
      * @return The id of the image. 0 if not found.
      */
     public int getImageResourceId(Context context) {
-        return context.getResources().getIdentifier(name.toLowerCase(), "drawable", context.getPackageName());
+        String filename = getStringForImageFile();
+        int id_to_ret = context.getResources().getIdentifier(filename, "drawable", context.getPackageName());
+        Log.d("ShopItem", filename);
+        return id_to_ret;
     }
 
     public String getSize() {
