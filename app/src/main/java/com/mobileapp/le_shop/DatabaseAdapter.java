@@ -148,6 +148,68 @@ public class DatabaseAdapter {
     }
 
     /**
+     * Returns all Shop Items from the Items table that
+     * are UNIQUE shirts.
+     * Returns null if no results.
+     * @return ArrayList of ShopItem
+     */
+    public ArrayList<ShopItem> getAllUniqueShirts() {
+        ArrayList<ShopItem> list = new ArrayList<ShopItem>();
+        String sql = "Select * from Items where item_id in (select item_id from Shirts)";
+        Cursor cr = db.rawQuery(sql, null);
+
+        // Check if Empty
+        if(cr.getCount() == 0) {
+            return null;
+        }
+
+        // Comb the list and make the ShopItems
+        for (int i = 0; i < cr.getCount(); i++) {
+            cr.moveToPosition(i);
+            int item_id = cr.getInt(0);
+            String name = cr.getString(1);
+            String desc = cr.getString(2);
+            float price = cr.getFloat(4);
+            String size = null;
+
+            ShopItem item = new ShopItem(item_id, name, desc, price, size);
+            list.add(item);
+        }
+        return list;
+    }
+
+    /**
+     * Returns all Shop Items from the Items table that
+     * are UNIQUE pants.
+     * Returns null if no results.
+     * @return ArrayList of ShopItem
+     */
+    public ArrayList<ShopItem> getAllUniquePants() {
+        ArrayList<ShopItem> list = new ArrayList<ShopItem>();
+        String sql = "Select * from Items where item_id in (select item_id from Pants)";
+        Cursor cr = db.rawQuery(sql, null);
+
+        // Check if Empty
+        if(cr.getCount() == 0) {
+            return null;
+        }
+
+        // Comb the list and make the ShopItems
+        for (int i = 0; i < cr.getCount(); i++) {
+            cr.moveToPosition(i);
+            int item_id = cr.getInt(0);
+            String name = cr.getString(1);
+            String desc = cr.getString(2);
+            float price = cr.getFloat(4);
+            String size = null;
+
+            ShopItem item = new ShopItem(item_id, name, desc, price, size);
+            list.add(item);
+        }
+        return list;
+    }
+
+    /**
      * Returns all Shop Items from the Items table, does not
      * return distinct sizes and size field will be NULL.
      * Returns null if no results.
