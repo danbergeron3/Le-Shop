@@ -1,5 +1,6 @@
 package com.mobileapp.le_shop;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -8,13 +9,12 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
 public class DatabaseAdapter {
     private DataBaseHelper dbHelper;
     private SQLiteDatabase db;
     private final Context context;
-
     private String tag = "DB_ADAPTER";
 
     /*
@@ -56,11 +56,27 @@ public class DatabaseAdapter {
     }
 
     /**
+     * Must be called after createDatabase(), if successful
+     * will open the database and it will be ready to be write.
+     * @throws SQLException
+     */
+    public void openWriteableDatabase() throws SQLException {
+        try {
+            dbHelper.openDataBase();
+            db = dbHelper.getWritableDatabase();
+        }catch (SQLException sqlE) {
+            Log.e(tag, sqlE.toString());
+            throw sqlE;
+        }
+    }
+
+    /**
      * Closes the database, must be opened again
      * after.
      */
     public void close() {
         dbHelper.close();
+        db = null;
     }
 
     /*
@@ -198,7 +214,6 @@ public class DatabaseAdapter {
      * @return
      */
     public ArrayList<ShopItem> getShopItemAndSizesFromId(int id) {
-        // TODO: Return shop item with same id and all of its sizes
         ArrayList<ShopItem> list = new ArrayList<ShopItem>();
         String sql = String.format("select * from Items natural join Shirts natural join Pants where item_id = %d", id);
         Cursor cr = db.rawQuery(sql, null);
@@ -230,7 +245,6 @@ public class DatabaseAdapter {
      * @return
      */
     public ArrayList<String> getAllSizesFromId(int id) {
-        // TODO: Natural Join Shirts and Pants and match the id, get all sizes
         ArrayList<String> list = new ArrayList<String>();
         String sql = String.format("select * from Items natural join Shirts natural join Pants where item_id = %d", id);
         Cursor cr = db.rawQuery(sql, null);
@@ -256,7 +270,6 @@ public class DatabaseAdapter {
      * @return ArrayList of ShopItem
      */
     public ArrayList<ShopItem> getAllFeaturedItems() {
-        // TODO: Return all the items from the Featured_Items table, will have a null size
         ArrayList<ShopItem> list = new ArrayList<ShopItem>();
         String sql = String.format("select * from Featured_Items natural join Items");
         Cursor cr = db.rawQuery(sql, null);
@@ -291,7 +304,7 @@ public class DatabaseAdapter {
      */
     public ArrayList<ShopItem> getAllCartItems() {
         ArrayList<ShopItem> list = new ArrayList<ShopItem>();
-        String sql = "Select * from Cart_Items";
+        String sql = "Select * from Cart_Items natural join Items";
         Cursor cr = db.rawQuery(sql, null);
 
         // Check if Empty
@@ -322,17 +335,14 @@ public class DatabaseAdapter {
      * @return quantity
      */
     public int getCartItemQuantity(int id, String size) {
-        String sql = String.format("select * from Cart_Items where id = %d and size = '%s'", id, size);
+        String sql = String.format(Locale.US,
+                "select * from Cart_Items where item_id = %d and size = '%s'", id, size);
         Cursor cr = db.rawQuery(sql, null);
-
         if(cr.getCount() == 0) {
-            return -1;
+            return 0;
         }
-
         cr.moveToFirst();
-        int quantity = cr.getInt(2);
-
-        return quantity;
+        return cr.getInt(2);
     }
 
     /*
@@ -345,21 +355,44 @@ public class DatabaseAdapter {
      * @param item
      */
     public void addCartItem(ShopItem item) {
-        // TODO: Add the item to the cart, size must NOT BE NULL
-        String sql = String.format("select * from Cart_Items where item_id = %d and size = '%s'", item.getId(), item.getSize());
+        String sql = String.format(Locale.US,
+                "select * from Cart_Items where item_id = %d and size = '%s'",
+                item.getId(), item.getSize());
         Cursor cr = db.rawQuery(sql, null);
         String modify_sql;
         int quantity;
+        ContentValues values;
+
+        values = new ContentValues();
+        values.put("item_id",item.getId());
+        values.put("size", item.getSize());
+        values.put("total_price", item.getPrice());
 
         // Check if Empty
         if(cr.getCount() == 0) {
-            quantity = 1;
-            modify_sql = String.format("insert into Cart_Items values(" + item.getId() + ", " + "'" + item.getSize() +"'" + ", " + quantity + ", " + item.getPrice() + ")");
+            close();
+            openWriteableDatabase();
+            try {
+                quantity = 1;
+                values.put("quantity", quantity);
+                db.insert("Cart_Items", null, values);
+                close();
+                openDatabase();
+            } catch (SQLException sqlE) {
+                Log.e(tag, sqlE.toString());
+            }
         } else {
-            quantity = getCartItemQuantity(item.getId(), item.getSize());
-            modify_sql = String.format("update Cart_Items set quantity = %d where item_id = %d", quantity, item.getId());
+            try {
+                quantity = getCartItemQuantity(item.getId(), item.getSize());
+                String key = String.format("item_id=%d AND size='%s'", item.getId(), item.getSize());
+                values.put("quantity", quantity);
+                db.update("Cart_Items", values, key, null );
+                close();
+                openDatabase();
+            } catch (SQLException sqlE) {
+                Log.e(tag, sqlE.toString());
+            }
         }
-        db.execSQL(modify_sql);
     }
 
     /**
@@ -368,23 +401,40 @@ public class DatabaseAdapter {
      * @param size
      */
     public void removeCartItem(int id, String size) {
-        // TODO: Remove item from the cart with this id and size
-        // TODO: Might need more logic to reduce quantity and such
-        String sql = String.format("select * from Cart_Items where id = %d and size = '%s'", id, size);
+        String sql = String.format(Locale.US,
+                "select * from Cart_Items where item_id = %d and size = '%s'", id, size);
         Cursor cr = db.rawQuery(sql, null);
-        String modify_sql;
+        String selection = String.format("item_id=%d AND size='%s'", id, size);
 
         // Check if there is at least one item
         if(cr.getCount() != 0) {
+            close();
+            openWriteableDatabase();
             int quantity = getCartItemQuantity(id, size);
-            if (quantity == 1) {
-                modify_sql = String.format("delete from Cart_Items where item_id = %d", id);
+            if (quantity > 1) {
+                try {
+                    cr.moveToFirst();
+                    ContentValues values = new ContentValues();
+                    values.put("item_id", cr.getInt(0));
+                    values.put("size", cr.getString(1));
+                    values.put("quantity", cr.getInt(2) - 1);
+                    values.put("total_price", cr.getFloat(3));
+                    db.update("Cart_Items", values, selection, null );
+                    close();
+                    openDatabase();
+                } catch (SQLException sqlE) {
+                    Log.e(tag, sqlE.toString());
+                }
             } else {
-                modify_sql = String.format("update Cart_Items set quantity = %d where item_id = %d", quantity - 1, id);
+                try {
+                    db.delete("Cart_Items", selection, null );
+                    close();
+                    openDatabase();
+                } catch (SQLException sqlE) {
+                    Log.e(tag, sqlE.toString());
+                }
             }
-            db.execSQL(modify_sql);
         }
-
     }
 
 }
