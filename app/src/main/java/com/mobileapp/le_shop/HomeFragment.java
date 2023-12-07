@@ -47,6 +47,10 @@ public class HomeFragment extends Fragment {
         adapter.removeCartItem(1, "L");
 
         ArrayList<ShopItem> please_work = adapter.getAllCartItems();
+        ArrayList<ShopItem> shirts = adapter.getAllUniqueShirts();
+        ArrayList<ShopItem> pants = adapter.getAllUniquePants();
+
+
         return view;
     }
 }
