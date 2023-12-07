@@ -18,7 +18,7 @@ import java.io.OutputStream;
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     private static String DB_NAME ="SaharaDB.db";
-    private static String DB_PATH = "/data/data/package_name/database";
+    private static String DB_PATH = "/data/data/com.mobileapp.le_shop/databases/";
     private static int DB_VERSION = 1;
     private final File DB_FILE;
     private SQLiteDatabase dataBase;
@@ -33,7 +33,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void createDataBase() throws IOException {
         // If the database does not exist, copy it from the assets.
         boolean mDataBaseExist = checkDataBase();
-        if(true) { //!mDataBaseExist) {
+        if(!mDataBaseExist) { //!mDataBaseExist) {
             this.getReadableDatabase();
             this.close();
             try {
