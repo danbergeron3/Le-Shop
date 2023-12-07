@@ -78,7 +78,7 @@ public class Populate {
         DatabaseAdapter dbPortal = new DatabaseAdapter(fragmentContext);
         dbPortal.createDatabase();
         dbPortal.openDatabase();
-        ArrayList<ShopItem> allShirts = dbPortal.getAllPants();
+        ArrayList<ShopItem> allShirts = dbPortal.getAllShirts();
 
         for(ShopItem item: allShirts) {
             Log.d("POPULATE_DEBUG", "making item" + item.getName());
@@ -101,7 +101,7 @@ public class Populate {
             DatabaseAdapter dbPortal = new DatabaseAdapter(fragmentContext);
             dbPortal.createDatabase();
             dbPortal.openDatabase();
-            ArrayList<ShopItem> allShirts = dbPortal.getAllPants();
+            ArrayList<ShopItem> allShirts = dbPortal.getAllCartItems();
 
             for(ShopItem item: allShirts) {
                 Log.d("POPULATE_DEBUG", "making item" + item.getName());
@@ -109,5 +109,28 @@ public class Populate {
                         item.getName(), Float.toString(item.getPrice()), item.getId(), action);
                 parent.addView(itemButton);
             }
+    }
+
+    /**
+     * Takes view group to append too and the fragments context.
+     * Will populate the ViewGroup with item buttons containing every cart item in the Database
+     * @param parent
+     * @param fragmentContext
+     * @param action taken from nav_graph
+     * @return
+     */
+    public static void populateViewWithFeaturedItems(ViewGroup parent, Context fragmentContext, int action)
+            throws IOException {
+        DatabaseAdapter dbPortal = new DatabaseAdapter(fragmentContext);
+        dbPortal.createDatabase();
+        dbPortal.openDatabase();
+        ArrayList<ShopItem> features = dbPortal.getAllFeaturedItems();
+
+        for(ShopItem item: features) {
+            Log.d("POPULATE_DEBUG", "making item" + item.getName());
+            ItemButton itemButton = new ItemButton(parent.getContext(), null, item.getImageResourceId(fragmentContext),
+                    item.getName(), Float.toString(item.getPrice()), item.getId(), action);
+            parent.addView(itemButton);
+        }
     }
 }
