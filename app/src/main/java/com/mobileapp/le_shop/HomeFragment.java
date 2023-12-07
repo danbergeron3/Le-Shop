@@ -33,28 +33,20 @@ public class HomeFragment extends Fragment {
         }
 
         adapter.openDatabase();
-//        db.openDataBase();
-//        Log.d("Database Name", db.getDatabaseName());
-//        SQLiteDatabase dbRead = db.getReadableDatabase();
-//
-//        Cursor cr = dbRead.rawQuery("Select name from Items", null);
-//        cr.moveToFirst();
-//        for(int i = 0; i < cr.getCount(); i++) {
-//            cr.moveToPosition(i);
-//            Log.d("DB Output", cr.getString(0));
-//        }
 
-        // (item_id, name, desc, price, size)
         ShopItem item1 = new ShopItem(1, "Polo", null, 18, "M" );
         ShopItem item2 = new ShopItem(1, "Polo", null, 18, "L" );
+        ShopItem item3 = new ShopItem(1, "Polo", null, 18, "L" );
+        ShopItem item4 = new ShopItem(2, "Slacks", null, 32, "S" );
 
-        //ArrayList<ShopItem> shirts = adapter.getAllShopItems();
         adapter.addCartItem(item1);
         adapter.addCartItem(item2);
-        adapter.getAllCartItems();
+        adapter.addCartItem(item3);
+        adapter.addCartItem(item4);
 
+        adapter.removeCartItem(1, "L");
 
-
+        ArrayList<ShopItem> please_work = adapter.getAllCartItems();
         return view;
     }
 }
