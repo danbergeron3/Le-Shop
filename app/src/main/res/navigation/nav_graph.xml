@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/catalogFragment"
         android:name="com.mobileapp.le_shop.CatalogFragment"
-        android:label="Catalog"
+        android:label="@string/catalog"
         tools:layout="@layout/fragment_catalog" >
         <action
             android:id="@+id/action_catalogFragment_to_itemFragment"
@@ -32,22 +32,22 @@
     <fragment
         android:id="@+id/itemFragment"
         android:name="com.mobileapp.le_shop.ItemFragment"
-        android:label="Item"
+        android:label="@string/item"
         tools:layout="@layout/fragment_item" >
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.mobileapp.le_shop.CartFragment"
-        android:label="Cart"
+        android:label="@string/cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.mobileapp.le_shop.AboutFragment"
-        android:label="About"
+        android:label="@string/about"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/supportFragment"
         android:name="com.mobileapp.le_shop.SupportFragment"
-        android:label="fragment_support"
+        android:label="@string/support"
         tools:layout="@layout/fragment_support" />
 </navigation>
