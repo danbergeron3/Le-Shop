@@ -43,8 +43,8 @@ public class CartFragment extends Fragment {
             Log.e("ERROR", e.getMessage());
         }
 
-        /*dbAdapter.openDatabase();
-        ShopItem item1 = dbAdapter.getShopItemFromId(1);
+        dbAdapter.openDatabase();
+        /*ShopItem item1 = dbAdapter.getShopItemFromId(1);
         ShopItem item2 = dbAdapter.getShopItemFromId(10);
 
         item1.setSize("M");
