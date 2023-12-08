@@ -93,21 +93,25 @@ public class Populate {
      * Will populate the ViewGroup with item buttons containing every cart item in the Database
      * @param parent
      * @param fragmentContext
-     * @param action taken from nav_graph
      * @return
      */
-    public static void populateViewWithCartItems(ViewGroup parent, Context fragmentContext, int action)
+    public static void populateViewWithCartItems(ViewGroup parent, Context fragmentContext)
             throws IOException {
             DatabaseAdapter dbPortal = new DatabaseAdapter(fragmentContext);
             dbPortal.createDatabase();
             dbPortal.openDatabase();
-            ArrayList<ShopItem> allShirts = dbPortal.getAllCartItems();
+            ArrayList<ShopItem> allCartItems = dbPortal.getAllCartItems();
 
-            for(ShopItem item: allShirts) {
+            if(allCartItems == null) {
+                return;
+            }
+            for(ShopItem item: allCartItems) {
                 Log.d("POPULATE_DEBUG", "making item" + item.getName());
-                ItemButton itemButton = new ItemButton(parent.getContext(), null, item.getImageResourceId(fragmentContext),
-                        item.getName(), Float.toString(item.getPrice()), item.getId(), action);
-                parent.addView(itemButton);
+                int quantity = dbPortal.getCartItemQuantity(item.getId(), item.getSize());
+                //ItemButton itemButton = new ItemButton(parent.getContext(), null, item.getImageResourceId(fragmentContext),
+                        //item.getName(), Float.toString(item.getPrice()), item.getId(), action);
+                CartItemListing cartItem = new CartItemListing(parent.getContext(), item, quantity);
+                parent.addView(cartItem);
             }
     }
 

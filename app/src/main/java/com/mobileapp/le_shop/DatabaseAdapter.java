@@ -447,7 +447,7 @@ public class DatabaseAdapter {
             try {
                 quantity = getCartItemQuantity(item.getId(), item.getSize());
                 String key = String.format("item_id=%d AND size='%s'", item.getId(), item.getSize());
-                values.put("quantity", quantity);
+                values.put("quantity", quantity + 1);
                 db.update("Cart_Items", values, key, null );
                 close();
                 openDatabase();

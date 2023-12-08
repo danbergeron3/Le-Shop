@@ -19,4 +19,18 @@
     <string name="cart">Cart</string>
     <string name="app_home_h1">Welcome To Sahara</string>
     <string name="app_home_h2">Check out the Deals!</string>
+
+    <!-- Cart Item Strings -->
+    <string name="cart_fragment_title">Shopping Cart</string>
+    <string name="cart_fragment_subtotal_prompt">Subtotal</string>
+    <string name="cart_fragment_total_price_filler">$0.00</string>
+    <string name="cart_fragment_button_text">Purchase</string>
+    <string name="cart_item_quantity_prompt">Quantity:</string>
+    <string-array name="quantity_options">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 </resources>

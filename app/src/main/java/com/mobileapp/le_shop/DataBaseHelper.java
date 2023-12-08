@@ -47,6 +47,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+
     // Check that the database file exists in databases folder
     private boolean checkDataBase() {
         return DB_FILE.exists();
