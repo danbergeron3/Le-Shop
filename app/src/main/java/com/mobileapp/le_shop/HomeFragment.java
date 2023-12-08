@@ -4,12 +4,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.mobileapp.le_shop.databinding.FragmentCatalogBinding;
+import com.mobileapp.le_shop.databinding.FragmentHomeBinding;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,8 +25,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        @NonNull FragmentHomeBinding binding =
+                FragmentHomeBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        LinearLayout featured = binding.linearLayoutHome1;
         // DataBaseHelper db = new DataBaseHelper(view.getContext());
         DatabaseAdapter adapter = new DatabaseAdapter(view.getContext());
 
@@ -49,6 +56,12 @@ public class HomeFragment extends Fragment {
         ArrayList<ShopItem> please_work = adapter.getAllCartItems();
         ArrayList<ShopItem> shirts = adapter.getAllUniqueShirts();
         ArrayList<ShopItem> pants = adapter.getAllUniquePants();
+        try {
+            Populate.populateViewWithFeaturedItems(featured, binding.getRoot().getContext(),
+                    R.id.action_homeFragment_to_itemFragment);
+        } catch (IOException e){
+            Log.d("HOME_DEBUG", "Failed to feature populate");
+        }
 
 
         return view;

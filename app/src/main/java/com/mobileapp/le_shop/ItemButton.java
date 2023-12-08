@@ -66,7 +66,7 @@ public class ItemButton extends ConstraintLayout {
                 Bundle bundle = new Bundle();
                 bundle.putInt("ITEM_ID", itemIDNum);
                 Log.d("ITEMBUTTON_DEBUG", "onClick Called");
-                Navigation.findNavController(v).navigate(R.id.action_catalogFragment_to_itemFragment, bundle);
+                Navigation.findNavController(v).navigate(action, bundle);
             }
         });
     }

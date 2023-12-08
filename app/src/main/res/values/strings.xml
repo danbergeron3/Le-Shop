@@ -17,4 +17,6 @@
     <string name="catalog">Catalog</string>
     <string name="item">Item</string>
     <string name="cart">Cart</string>
+    <string name="app_home_h1">Welcome To Sahara</string>
+    <string name="app_home_h2">Check out the Deals!</string>
 </resources>
