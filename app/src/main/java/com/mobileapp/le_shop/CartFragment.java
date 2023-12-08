@@ -7,13 +7,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.mobileapp.le_shop.databinding.FragmentCartBinding;
 
 public class CartFragment extends Fragment {
 
+    FragmentCartBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+
+        binding = FragmentCartBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        TextView totalPriceTextView = binding.totalTextView;
+
+        return view;
     }
 }
