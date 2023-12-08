@@ -33,7 +33,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void createDataBase() throws IOException {
         // If the database does not exist, copy it from the assets.
         boolean mDataBaseExist = checkDataBase();
-        if(!mDataBaseExist) { //!mDataBaseExist) {
+        if(true) { //!mDataBaseExist) {
             this.getReadableDatabase();
             this.close();
             try {
@@ -54,7 +54,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     // Copy the database from assets
     private void copyDataBase() throws IOException {
-        InputStream mInput = context.getAssets().open(DB_NAME);
+        InputStream mInput;
+        try {
+            mInput = context.getAssets().open(DB_NAME);
+        } catch (IOException e) {
+            Log.d("GB Debug", e.getMessage());
+            throw e;
+        }
+        Log.d("DATABASE COPY", mInput.toString());
         OutputStream mOutput = new FileOutputStream(DB_FILE);
         byte[] mBuffer = new byte[1024];
         int mLength;
