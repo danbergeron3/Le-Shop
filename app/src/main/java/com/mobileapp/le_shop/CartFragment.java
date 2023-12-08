@@ -16,6 +16,12 @@ import com.mobileapp.le_shop.databinding.FragmentCartBinding;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * POSSIBLE FEATURES TO ADD
+ * TODO: REMOVE ALL CART ITEMS
+ * TODO: WHEN ITEMS REMOVED, RESET THE VIEWS
+ */
+
 public class CartFragment extends Fragment {
 
     FragmentCartBinding binding;
@@ -37,7 +43,7 @@ public class CartFragment extends Fragment {
             Log.e("ERROR", e.getMessage());
         }
 
-        dbAdapter.openDatabase();
+        /*dbAdapter.openDatabase();
         ShopItem item1 = dbAdapter.getShopItemFromId(1);
         ShopItem item2 = dbAdapter.getShopItemFromId(10);
 
@@ -48,7 +54,7 @@ public class CartFragment extends Fragment {
         dbAdapter.addCartItem(item2);
         dbAdapter.addCartItem(item2);
         dbAdapter.addCartItem(item2);
-        dbAdapter.addCartItem(item2);
+        dbAdapter.addCartItem(item2);*/
 
         // End debug
 
@@ -66,6 +72,7 @@ public class CartFragment extends Fragment {
 
     private float GetTotalPrice(DatabaseAdapter db) {
         ArrayList<ShopItem> allCartItems =  db.getAllCartItems();
+        if (allCartItems == null) {return 0;}
         float total = 0;
         for(ShopItem i : allCartItems) {
             int quantity = db.getCartItemQuantity(i.getId(), i.getSize());

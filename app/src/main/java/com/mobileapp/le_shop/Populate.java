@@ -102,6 +102,9 @@ public class Populate {
             dbPortal.openDatabase();
             ArrayList<ShopItem> allCartItems = dbPortal.getAllCartItems();
 
+            if(allCartItems == null) {
+                return;
+            }
             for(ShopItem item: allCartItems) {
                 Log.d("POPULATE_DEBUG", "making item" + item.getName());
                 int quantity = dbPortal.getCartItemQuantity(item.getId(), item.getSize());
