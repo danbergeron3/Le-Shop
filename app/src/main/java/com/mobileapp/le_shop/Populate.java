@@ -35,7 +35,7 @@ public class Populate {
         for(ShopItem item: allItems) {
             Log.d("POPULATE_DEBUG", "making item" + item.getName());
             ItemButton itemButton = new ItemButton(parent.getContext(), null, item.getImageResourceId(fragmentContext),
-                    item.getName(), Float.toString(item.getPrice()), item.getId(), action);
+                    item.getName(), item.getPrice(), item.getId(), action);
             parent.addView(itemButton);
         }
     }
@@ -60,7 +60,7 @@ public class Populate {
         for(ShopItem item: allPants) {
             Log.d("POPULATE_DEBUG", "making item" + item.getName());
             ItemButton itemButton = new ItemButton(parent.getContext(), null, item.getImageResourceId(fragmentContext),
-                    item.getName(), Float.toString(item.getPrice()), item.getId(), action);
+                    item.getName(), item.getPrice(), item.getId(), action);
             parent.addView(itemButton);
         }
     }
@@ -83,7 +83,7 @@ public class Populate {
         for(ShopItem item: allShirts) {
             Log.d("POPULATE_DEBUG", "making item" + item.getName());
             ItemButton itemButton = new ItemButton(parent.getContext(), null, item.getImageResourceId(fragmentContext),
-                    item.getName(), Float.toString(item.getPrice()), item.getId(), action);
+                    item.getName(), item.getPrice(), item.getId(), action);
             parent.addView(itemButton);
         }
     }
@@ -133,7 +133,7 @@ public class Populate {
         for(ShopItem item: features) {
             Log.d("POPULATE_DEBUG", "making item" + item.getName());
             ItemButton itemButton = new ItemButton(parent.getContext(), null, item.getImageResourceId(fragmentContext),
-                    item.getName(), Float.toString(item.getPrice()), item.getId(), action);
+                    item.getName(), item.getPrice(), item.getId(), action);
             parent.addView(itemButton);
         }
     }
