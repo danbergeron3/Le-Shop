@@ -55,7 +55,7 @@ public class Populate {
         DatabaseAdapter dbPortal = new DatabaseAdapter(fragmentContext);
         dbPortal.createDatabase();
         dbPortal.openDatabase();
-        ArrayList<ShopItem> allPants = dbPortal.getAllPants();
+        ArrayList<ShopItem> allPants = dbPortal.getAllUniquePants();
 
         for(ShopItem item: allPants) {
             Log.d("POPULATE_DEBUG", "making item" + item.getName());
@@ -78,7 +78,7 @@ public class Populate {
         DatabaseAdapter dbPortal = new DatabaseAdapter(fragmentContext);
         dbPortal.createDatabase();
         dbPortal.openDatabase();
-        ArrayList<ShopItem> allShirts = dbPortal.getAllShirts();
+        ArrayList<ShopItem> allShirts = dbPortal.getAllUniqueShirts();
 
         for(ShopItem item: allShirts) {
             Log.d("POPULATE_DEBUG", "making item" + item.getName());
