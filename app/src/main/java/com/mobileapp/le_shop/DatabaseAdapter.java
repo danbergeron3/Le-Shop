@@ -245,7 +245,7 @@ public class DatabaseAdapter {
      * Does not return distinct sizes and size field will be NULL.
      * Returns null if no results.
      * @param id
-     * @return
+     * @return a single shop item
      */
     public ShopItem getShopItemFromId(int id) {
         String sql = String.format("select * from Items where item_id = %d",id);
@@ -273,7 +273,7 @@ public class DatabaseAdapter {
      * Returns all sizes of the shop item id.
      * Returns null if no results.
      * @param id
-     * @return
+     * @return ArrayList of ShopItem
      */
     public ArrayList<ShopItem> getShopItemAndSizesFromId(int id) {
         ArrayList<ShopItem> list = new ArrayList<ShopItem>();
@@ -304,11 +304,16 @@ public class DatabaseAdapter {
      * Returns ArrayList of sizes of a given id
      * Returns null if no results.
      * @param id
-     * @return
+     * @return ArrayList of ShopItem
      */
     public ArrayList<String> getAllSizesFromId(int id) {
         ArrayList<String> list = new ArrayList<String>();
-        String sql = String.format("select * from Items natural join Shirts natural join Pants where item_id = %d", id);
+        String sql;
+        if (isPant(id)) {
+            sql = String.format("select * from Items natural join Pants where item_id = %d", id);
+        } else {
+            sql = String.format("select * from Items natural join Shirts where item_id = %d", id);
+        }
         Cursor cr = db.rawQuery(sql, null);
 
         // Check if Empty
@@ -323,6 +328,27 @@ public class DatabaseAdapter {
         }
 
         return list;
+    }
+    /**
+     * Returns if item_id given is a shirt
+     * @param id
+     * @return boolean
+     */
+    public boolean isShirt(int id) {
+        String sql = String.format("select * from Items where item_id = %d and item_id in (select item_id from shirts)", id);
+        Cursor cr = db.rawQuery(sql, null);
+        return cr.getCount() != 0;
+    }
+
+    /**
+     * Returns if item_id given is a pant
+     * @param id
+     * @return boolean
+     */
+    public boolean isPant(int id) {
+        String sql = String.format("select * from Items where item_id = %d and item_id in (select item_id from pants)", id);
+        Cursor cr = db.rawQuery(sql, null);
+        return cr.getCount() != 0;
     }
 
     /**
@@ -394,7 +420,7 @@ public class DatabaseAdapter {
      * Returns -1 if no results.
      * @param id
      * @param size
-     * @return quantity
+     * @return quantity of the cart item desired
      */
     public int getCartItemQuantity(int id, String size) {
         String sql = String.format(Locale.US,
@@ -447,7 +473,7 @@ public class DatabaseAdapter {
             try {
                 quantity = getCartItemQuantity(item.getId(), item.getSize());
                 String key = String.format("item_id=%d AND size='%s'", item.getId(), item.getSize());
-                values.put("quantity", quantity);
+                values.put("quantity", quantity + 1);
                 db.update("Cart_Items", values, key, null );
                 close();
                 openDatabase();

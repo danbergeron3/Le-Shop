@@ -11,15 +11,6 @@
         android:label="Sahara"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_catalogFragment"
-            app:destination="@id/catalogFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_supportFragment"
-            app:destination="@id/supportFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_itemFragment"
             app:destination="@id/itemFragment" />
     </fragment>

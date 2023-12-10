@@ -2,4 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="lightGreen">#A2C58A</color>
+    <color name="darkGray">#616667</color>
+    <color name="beige">#EDD7B3</color>
+    <color name="lightGray">#9FA6AC</color>
+    <color name="skyBlue">#A5DCF9</color>
+
+    <color name="navyBlue">#3A3F4B</color>
+    <color name="brown">#999588</color>
+    <color name="darkGreen">#228B22</color>
+    <color name="offWhite">#FAF9F6</color>
+<!--    <color name="">#</color>-->
+<!--    <color name="">#</color>-->
+<!--    <color name="">#</color>-->
+
 </resources>

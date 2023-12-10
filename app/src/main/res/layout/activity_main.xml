@@ -16,7 +16,8 @@
             android:id="@+id/toolbar"
             style="@style/Widget.Material3.Toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/lightGreen"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
@@ -36,5 +37,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        app:menu = "@menu/menu_drawer"/>
+        app:menu = "@menu/menu_drawer"
+        android:background="@color/offWhite"
+        app:itemShapeFillColor="@color/item_selector"/>
 </androidx.drawerlayout.widget.DrawerLayout>
