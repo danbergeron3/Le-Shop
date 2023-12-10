@@ -19,6 +19,18 @@
     <string name="cart">Cart</string>
     <string name="app_home_h1">Welcome To Sahara</string>
     <string name="app_home_h2">Check out the Deals!</string>
+  
+    <string name="app_about_h1">About Sahara</string>
+    <string name="app_about_h2">Present</string>
+    <string name="app_about_p">Currently we have a database connected to the app so it dynamically
+        stores and generates items.
+        We have a drawer for navigation, cart fragment for items the user is interested in.
+    </string>
+    <string name="app_about_h2_2">Future</string>
+    <string name="app_about_p2">In the future we will have a fully integrated ecommerce
+    Store that communicates with an external server
+     </string>
+
 
     <!-- Cart Item Strings -->
     <string name="cart_fragment_title">Shopping Cart</string>
