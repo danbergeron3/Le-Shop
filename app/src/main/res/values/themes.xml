@@ -2,8 +2,15 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.LeShop" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<!--        <item name="colorPrimary">@color/black</item>-->
+<!--        <item name="android:statusBarColor">@color/beige</item>-->
+<!--        <item name="android:navigationBarColor">@color/lightGray</item>-->
+<!--        <item name="android:windowBackground">@color/lightGray</item>-->
     </style>
 
-    <style name="Theme.LeShop" parent="Base.Theme.LeShop" />
+    <style name="Theme.LeShop" parent="Base.Theme.LeShop" >
+        <item name="android:statusBarColor">@color/black</item>
+<!--        <item name="android:navigationBarColor">@color/darkGray</item>-->
+<!--        <item name="android:windowBackground">@color/lightGreen</item>-->
+    </style>
 </resources>
