@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.mobileapp.le_shop.databinding.FragmentCatalogBinding;
 import com.mobileapp.le_shop.databinding.FragmentHomeBinding;
 
@@ -29,7 +33,17 @@ public class HomeFragment extends Fragment {
                 FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         LinearLayout featured = binding.linearLayoutHome1;
-        // DataBaseHelper db = new DataBaseHelper(view.getContext());
+
+        // Initialize Ad scroller
+        ImageSlider adSlider = binding.adSlider;
+        ArrayList<SlideModel> adList = new ArrayList<SlideModel>();
+
+
+        adList.add(new SlideModel(R.drawable.ad_c, ScaleTypes.FIT));
+        adList.add(new SlideModel(R.drawable.ad_b,ScaleTypes.FIT));
+        adList.add(new SlideModel(R.drawable.ad1,ScaleTypes.FIT));
+        adSlider.setImageList(adList);
+
         DatabaseAdapter adapter = new DatabaseAdapter(view.getContext());
 
         try{
@@ -41,21 +55,6 @@ public class HomeFragment extends Fragment {
 
         adapter.openDatabase();
 
-        ShopItem item1 = new ShopItem(1, "Polo", null, 18, "M" );
-        ShopItem item2 = new ShopItem(1, "Polo", null, 18, "L" );
-        ShopItem item3 = new ShopItem(1, "Polo", null, 18, "L" );
-        ShopItem item4 = new ShopItem(2, "Slacks", null, 32, "S" );
-
-        adapter.addCartItem(item1);
-        adapter.addCartItem(item2);
-        adapter.addCartItem(item3);
-        adapter.addCartItem(item4);
-
-        adapter.removeCartItem(1, "L");
-
-        ArrayList<ShopItem> please_work = adapter.getAllCartItems();
-        ArrayList<ShopItem> shirts = adapter.getAllUniqueShirts();
-        ArrayList<ShopItem> pants = adapter.getAllUniquePants();
         try {
             Populate.populateViewWithFeaturedItems(featured, binding.getRoot().getContext(),
                     R.id.action_homeFragment_to_itemFragment);

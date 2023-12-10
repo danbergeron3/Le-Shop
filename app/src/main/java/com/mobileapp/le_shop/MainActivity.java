@@ -1,8 +1,11 @@
 package com.mobileapp.le_shop;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -27,9 +30,12 @@ public class MainActivity extends AppCompatActivity {
 
         NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
+
+
         NavigationView navView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navView, navController);
-        AppBarConfiguration.Builder builder = new AppBarConfiguration.Builder(navController.getGraph());
+        //AppBarConfiguration.Builder builder = new AppBarConfiguration.Builder(navController.getGraph());
+        AppBarConfiguration.Builder builder = new AppBarConfiguration.Builder(R.id.homeFragment, R.id.catalogFragment, R.id.aboutFragment, R.id.supportFragment);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         builder.setOpenableLayout(drawerLayout);
         AppBarConfiguration appBarConfiguration = builder.build();
@@ -49,4 +55,5 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.onNavDestinationSelected(item,
                 navController) || super.onOptionsItemSelected(item);
     }
+
 }

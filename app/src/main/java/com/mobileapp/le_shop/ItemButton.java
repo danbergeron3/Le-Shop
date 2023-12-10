@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class ItemButton extends ConstraintLayout {
     private ImageView itemImage;
     private TextView itemName;
@@ -43,12 +45,12 @@ public class ItemButton extends ConstraintLayout {
     //you can use null for attrs if you want, just declare an itemButton as new ItemButton, pass in the resource value as for imgResource
     //then do currentLayout.addView(itemButton) after initializing
     public ItemButton(Context context, AttributeSet attrs, int imageResource, String itemName,
-                      String itemPrice, int itemIDNum, int action) {
+                      float itemPrice, int itemIDNum, int action) {
         super(context, attrs);
         init(context, action);
         setItemImage(imageResource);
         setItemName(itemName);
-        setItemPrice(itemPrice);
+        setItemPrice(String.format(Locale.US, "$%.2f", itemPrice));
         setItemIDNum(itemIDNum);
     }
 
