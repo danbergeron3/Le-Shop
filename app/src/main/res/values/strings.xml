@@ -17,14 +17,8 @@
     <string name="catalog">Catalog</string>
     <string name="item">Item</string>
     <string name="cart">Cart</string>
-
-    <!-- Catalog Strings -->
-    <string name="catalog_filter_prompt">Filter</string>
-
-    <!-- Home Fragment Strings -->
-
     <string name="app_home_h1">Welcome To Sahara</string>
-    <string name="app_home_h2">Check out our Featured Collection!</string>
+    <string name="app_home_h2">Check out the Deals!</string>
 
     <!-- Cart Item Strings -->
     <string name="cart_fragment_title">Shopping Cart</string>
@@ -32,4 +26,21 @@
     <string name="cart_fragment_total_price_filler">$0.00</string>
     <string name="cart_fragment_button_text">Purchase</string>
     <string name="cart_item_quantity_prompt">Quantity:</string>
+    <string-array name="quantity_options">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string name="itemLabelHint">Item Label</string>
+    <string name="itemDescPlaceholder">Item Description</string>
+    <string name="itemPricePlaceholder">Item Price</string>
+    <string name="sizeGroupLabel">Pick a Size</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
+    <string name="xl">Xl</string>
+    <string name="addToCart">Add Item To Cart</string>
+    <string name="catalog_filter_prompt">Filter</string>
 </resources>
