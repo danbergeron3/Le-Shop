@@ -89,6 +89,7 @@
         android:layout_height="wrap_content"
         android:text="@string/cart_fragment_button_text"
         android:textSize="14sp"
+        android:backgroundTint="@color/darkGreen"
         app:layout_constraintBottom_toTopOf="@+id/topScrollLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/subtotalGuideline"
