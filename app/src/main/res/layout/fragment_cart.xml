@@ -95,4 +95,14 @@
         app:layout_constraintStart_toStartOf="@+id/subtotalGuideline"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/cart_snackbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subtotalPrompt" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

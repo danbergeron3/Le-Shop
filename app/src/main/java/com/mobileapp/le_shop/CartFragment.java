@@ -8,9 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.mobileapp.le_shop.databinding.FragmentCartBinding;
 
 import java.io.IOException;
@@ -34,6 +36,8 @@ public class CartFragment extends Fragment {
 
         TextView totalPriceTextView = binding.totalTextView;
         LinearLayout linearContainer = binding.scrollViewLinearLayout;
+        Button purchaseButton = binding.purchaseButton;
+        View snack = binding.cartSnackbar;
 
         // Debug Section
         DatabaseAdapter dbAdapter = new DatabaseAdapter(view.getContext());
@@ -44,19 +48,6 @@ public class CartFragment extends Fragment {
         }
 
         dbAdapter.openDatabase();
-        /*ShopItem item1 = dbAdapter.getShopItemFromId(1);
-        ShopItem item2 = dbAdapter.getShopItemFromId(10);
-
-        item1.setSize("M");
-        item2.setSize("L");
-
-        dbAdapter.addCartItem(item1);
-        dbAdapter.addCartItem(item2);
-        dbAdapter.addCartItem(item2);
-        dbAdapter.addCartItem(item2);
-        dbAdapter.addCartItem(item2);*/
-
-        // End debug
 
         try {
             Populate.populateViewWithCartItems(linearContainer, view.getContext());
@@ -66,6 +57,20 @@ public class CartFragment extends Fragment {
 
         totalPriceTextView.setText(String.format("$%.2f", GetTotalPrice(dbAdapter)));
 
+        purchaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar snackbar;
+                if (dbAdapter.getAllCartItems() != null) { // At least one radio button is checked
+                    snackbar = Snackbar.make(snack, "Thank you for your purchase!",
+                            Snackbar.LENGTH_LONG);
+                } else {
+                    snackbar = Snackbar.make(snack, "ERROR - no cart items.",
+                            Snackbar.LENGTH_LONG);
+                }
+                snackbar.show();
+            }
+        });
 
         return view;
     }
