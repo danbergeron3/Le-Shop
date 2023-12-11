@@ -107,9 +107,17 @@ public class ItemFragment extends Fragment {
             submit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dbAdapter.addCartItem(item);
-                    Snackbar snackbar
-                            = Snackbar.make(snack, "Added to cart!", Snackbar.LENGTH_LONG);
+                    Snackbar snackbar;
+                    int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+
+                    if (selectedRadioButtonId != -1) { // At least one radio button is checked
+                        dbAdapter.addCartItem(item);
+                        snackbar = Snackbar.make(snack, "Added to cart!",
+                                Snackbar.LENGTH_LONG);
+                    } else {
+                        snackbar = Snackbar.make(snack, "Please select a size.",
+                                Snackbar.LENGTH_LONG);
+                    }
                     snackbar.show();
                 }
             });
