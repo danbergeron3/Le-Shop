@@ -55,4 +55,10 @@
     <string name="xl">Xl</string>
     <string name="addToCart">Add Item To Cart</string>
     <string name="catalog_filter_prompt">Filter</string>
+    <string name="support_title">Sahara Support</string>
+    <string name="support_about">If you have any trouble with using our services, please contact us! From trouble logging in, to trouble with shipping,
+    our associates are always here to help.</string>
+    <string name="account_support">Account Issues</string>
+    <string name="product_support">Product Support</string>
+    <string name="anything_else_support">If your issue is not listed here, please feel free to contact us at support@sahara.com </string>
 </resources>
